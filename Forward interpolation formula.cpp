@@ -1,52 +1,50 @@
 #include<iostream>
 using namespace std;
 
-int main()
-{
-    int n, i, j;
-    float x, sum = 0, prod;
 
-    cout << "Enter number of data points: ";
-    cin >> n;
+int main(){
 
-    float X[n], F[n][n];
+float x[100][100],u,u1,k,y;
+int i,j,n;
 
-    cout << "Enter data points:" << endl;
+cout <<"Enter no of terms:";
+cin >> n;
 
-    for(i = 0; i < n; i++)
-    {
-        cout << "X[" << i << "]: ";
-        cin >> X[i];
+cout <<"Enter x-values:";
+for(int i=0;i<n;i++){
+	cin >> x[i][0];
+}
+cout <<"Enter y-values:";
+for(int i=0;i<n;i++){
+	cin >> x[i][1];
+}
 
-        cout << "Y[" << i << "]: ";
-        cin >> F[i][0];
-    }
+for(j=2;j<n+1;j++){
+	for(i=0;i<(n-(j-1));i++){
+		x[i][j]=x[i+1][j-1]-x[i][j-1];
+	}
+}
 
-    // Forward interpolation formula
-   
+for(i=0;i<n;i++){
+	for(j=0;j<=(n-i);j++){
+		cout << x[i][j]<<"\t";
+	}
+	cout <<endl;
+}
+	cout <<"Enter interpolation point:";
+cin >> k;
 
-    for(i = 1; i < n; i++)
-    {
-        for(j = 0; j < n - i; j++)
-        {
-            F[j][i] = (F[j + 1][i - 1] - F[j][i - 1]) / (X[j + i] - X[j]);
-        }
-    }
+u=(k-x[0][0])/(x[1][0]-x[0][0]);
+u1=u;
+y=x[0][1];
+int fact=1;
 
-    // Input value for estimation
-    cout << "Enter value of x for estimation: ";
-    cin >> x;
+for(i=2;i<n;i++){
+	y=y+(u1*x[0][i])/fact;
+	fact=fact*i;
+	u1=u1*(u-(i-1));
+}
+cout <<y;
 
-    // Calculation using the formula
-    prod = 1;
 
-    for(i = 0; i < n; i++)
-    {
-        sum += F[0][i] * prod;
-        prod *= (x - X[i]);
-    }
-
-    cout << "Estimated value at x = " << x << " is " << sum;
-
-    return 0;
 }
