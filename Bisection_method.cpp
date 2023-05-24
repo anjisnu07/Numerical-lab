@@ -1,60 +1,33 @@
 #include<iostream>
-#include<iomanip>
-#include<math.h>
-
-
-#define f(x)cos(x) - x * exp(x)
-
+#define f(x) (x*x*x -2*x-5)
 using namespace std;
 
-int main()
-{
-	 
-	 float x0, x1, x, f0, f1, f, e;
-	 int step = 1;
-
-	 
-     cout<< setprecision(6)<< fixed;
-
-	 up:
-	 cout<<"Enter first value: ";
-     cin>>x0;
-     cout<<"Enter second value: ";
-     cin>>x1;
-     cout<<"Enter tolerable value: ";
-     cin>>e;
-
-	 
-	 f0 = f(x0);
-	 f1 = f(x1);
-
-	 
-	 if( f0 * f1 > 0.0)
-	 {
-		  cout<<"Incorrect values(one should be negative and other pos)"<< endl;
-		  goto up;
-	 }
-
-	 do 
-	 {
-		 
-		  x = (x0 + x1)/2;
-		  f = f(x);
-
-		  cout<<step<<":\n\t"<<"\tvalue of x = "<< setw(10)<< x<<"\n\tvalue of f(x) = "<< setw(10)<< f(x)<< endl;
-
-		  if( f0 * f < 0)
-		  {
-			   x1 = x;
-		  }
-		  else
-		  {
-			   x0 = x;
-		  }
-		  step = step + 1;
-	 }while(fabs(f)>e);
-
-	 cout<< endl<< "Root is: "<<  x<< endl;
-
-	 return 0;
+int main(){
+	float x1,x2,x;
+	int i=1,n;
+	cout << "Enter the value of x1:";
+	cin >>x1;
+	
+	cout << "Enter the value of x2:";
+	cin >>x2;
+	
+	cout <<"Enter upto how much approximaton you want:";
+	cin >>n;
+	
+	while(i<=n){
+		
+		x=(x1+x2)/2;
+		
+		if(f(x)*f(x1)<0){
+			x2=x;
+		}
+		else if(f(x)*f(x2)<0){
+			x1=x;
+		}
+		else{
+			cout <<"Invalid root";
+		}
+		i++;
+	}
+	cout <<"root is:"<<x;
 }
